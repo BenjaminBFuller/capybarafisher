@@ -12,6 +12,7 @@ class Level:
         self.player = Player((400, 400), self.sprite_group)
         self.level_background = level1_image
         self.menu_scroll = 0
+        self.clouds_scroll = 0
         self.game_scroll = [0, 0]
         self.wiggle = [0, 0]
         self.text_bounce = 0
@@ -49,7 +50,6 @@ class Level:
 
         # blit BG image for current level, adjusting for scroll
         window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
-        self.display_surface.fill('black')
         self.sprite_group.draw(self.display_surface)
         window.blit(self.level_background, (0, 0))
         window.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
@@ -71,15 +71,22 @@ class Level:
         for tiles in range(0, menu_tiles):
             window.blit(menu_bg, (tiles * menu_bg_width + self.menu_scroll, 0))
 
+        for tiles in range(0, clouds_tiles):
+            window.blit(clouds_bg, (tiles * -clouds_bg_width + self.clouds_scroll, 0))
+
         # scroll background at this rate per frame
         self.menu_scroll -= 1
+        self.clouds_scroll += .5
 
         # reset scroll upon reaching edge of first tile
         if abs(self.menu_scroll) > menu_bg_width:
             self.menu_scroll = 0
 
+        if abs(self.clouds_scroll) > clouds_bg_width:
+            self.clouds_scroll = 0
+
         # blit menu titles/text with function
-        self.menu_titles(155, 155, 140, 200)
+        self.menu_titles(155, 155, 290, 550)
 
         # After blitting, update display
         pygame.display.update()
@@ -94,9 +101,14 @@ class Level:
         window.blit(title_drop_shadow, (x1 - 10 - self.text_bounce, y1 - 10 - self.text_bounce))
         title = title_font.render("CAPYBARA FISHER", False, white)
         window.blit(title, (x1 + self.text_bounce, y1 + self.text_bounce))
+        play_drop_shadow = play_font.render("- press p to play -", False, self.drop_color)
+        play_drop_shadow.set_alpha(100)
+        play_title = play_font.render("- press p to play -", False, white)
 
         # Text bounce effect
         if self.i <= 50:
+            window.blit(play_drop_shadow, (x2 - 10, y2 - 10))
+            window.blit(play_title, (x2, y2))
             self.text_bounce += .1
         if self.i > 50:
             self.text_bounce -= .1
