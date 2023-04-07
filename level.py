@@ -105,14 +105,14 @@ class Level:
         play_drop_shadow.set_alpha(100)
         play_title = play_font.render("- press p to play -", False, white)
 
-        # Text bounce effect
-        if self.i <= 50:
+        # Text bounce effect + flashing play title
+        if self.i <= 49:
             window.blit(play_drop_shadow, (x2 - 10, y2 - 10))
             window.blit(play_title, (x2, y2))
             self.text_bounce += .1
-        if self.i > 50:
+        if self.i > 49:
             self.text_bounce -= .1
-        if self.i == 100:
+        if self.i >= 99:
             self.i = 0
         self.i += 1
 
