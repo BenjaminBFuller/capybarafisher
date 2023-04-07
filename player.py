@@ -1,7 +1,5 @@
-import pygame
 from board import *
 from settings import *
-from math import floor, ceil
 
 
 class Player(pygame.sprite.Sprite):

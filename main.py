@@ -2,13 +2,10 @@
 # Grid based rpg; play as a capybara, fishing throughout different spots on the map
 
 # main.py
-import pygame
-import sys
 import time
-from math import floor, ceil
-from settings import *
+
 from level import Level
-from board import *
+from settings import *
 
 
 class Game:
