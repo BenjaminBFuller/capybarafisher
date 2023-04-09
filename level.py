@@ -49,9 +49,8 @@ class Level:
 
         # blit BG image for current level, adjusting for scroll
         window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
-        self.sprite_group.draw(self.display_surface)
-        window.blit(self.level_background, (0, 0))
-        window.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
+        #self.sprite_group.draw(self.display_surface)
+        #window.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
         self.sprite_group.update(dt)
 
     def menu(self):
