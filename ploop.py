@@ -13,6 +13,10 @@ def hunt_n_kill(width, height):
     while True:
         #finding univisited neighbors
         unvisited=[]
+        #make sure its even
+        assert y%2==0
+        assert x%2==0
+        print(x , ', ', y)
         #North
         if y>0: #Unvisited
             if maze[x][y-1]==0 and maze[x][y-2]==0:
@@ -54,35 +58,42 @@ def hunt_n_kill(width, height):
             print(path_length)
             path_length=0
             found = False
-            # y = i, x = j
-            for i in range(height):
-                for j in range(height):
-                    #move on if a connector cell
-                    if i%2!=1 and j%2!=1:
-                        continue
-                    elif maze[j][i]==0:
-                        neighbors=[]
-                        if i>0:
-                            if maze[x][y-2]==1:
-                                neighbors.append('N')
-                        if i<((height*2)-2):
-                            if maze[x][y+2]==1:
-                                neighbors.append('S')
-                        if j>=0:
-                            if maze[x][y]==1:
-                                neighbors.append('W')
-                        if j<((width*2)-2):
-                            if maze[x][y]==1:
-                                neighbors.append('E')
-                        #if there are nearby existing paths
-                        if len(neighbors)>0:
-                            direction=random.choice(neighbors)
-                            x=j
-                            y=i
-                            found=True
-                            break
-                if found:
-                    break
+            # # y = i, x = j
+            # for i in range(0,height*2-2, 2):
+            #     for j in range(0, width*2-2, 2):
+            #         #move on if a connector cell
+            #         if maze[j][i]==0:
+            #             neighbors=[]
+            #             if i>0:
+            #                 if maze[j][i-2]==1:
+            #                     neighbors.append('N')
+            #             if i<((height*2)-2):
+            #                 if maze[j][i+2]==1:
+            #                     neighbors.append('S')
+            #             if j>0:
+            #                 if maze[j-2][i]==1:
+            #                     neighbors.append('W')
+            #             if j<((width*2)-2):
+            #                 if maze[j+2][i]==1:
+            #                     neighbors.append('E')
+            #             #if there are nearby existing paths
+            #             if len(neighbors)>0:
+            #                 direction=random.choice(neighbors)
+            #                 x=j
+            #                 y=i
+            #                 maze[x][y]=1
+            #                 if direction=='N':
+            #                     maze[x][y-1]=1
+            #                 if direction=='S':
+            #                     maze[x][y+1]=1
+            #                 if direction=='W':
+            #                     maze[x-1][y]=1
+            #                 if direction=='E':
+            #                     maze[x+1][y]=1
+            #                 found=True
+            #                 break
+            #     if found:
+            #         break
         if not found:
             break
             
