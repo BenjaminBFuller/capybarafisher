@@ -13,7 +13,7 @@ class Game:
         self.previous_time = time.time()  # create clock for calculating delta time
         self.level = Level("menu")
 
-    def run_loop(self):
+    def main(self):
         while True:
             dt = time.time() - self.previous_time  # delta time
             self.previous_time = time.time()
@@ -24,4 +24,4 @@ class Game:
 
 if __name__ == "__main__":  # if in main file
     game = Game()
-    game.run_loop()  # run game loop
+    game.main()  # run game loop

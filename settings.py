@@ -35,4 +35,4 @@ capy_image = pygame.image.load("images/capy1.png").convert_alpha()
 capy_image = pygame.transform.scale(capy_image, (64, 96))
 
 level1_image = pygame.image.load("images/capy_level1.png").convert()
-level1_image = pygame.transform.scale(level1_image, (tile * 25, tile * 25))
+level1_image = pygame.transform.scale(level1_image, (tile * 20, tile * 15))

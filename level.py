@@ -49,7 +49,7 @@ class Level:
 
         # blit BG image for current level, adjusting for scroll
         window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
-        #self.sprite_group.draw(self.display_surface)
+        self.sprite_group.draw(self.display_surface)
         #window.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
         self.sprite_group.update(dt)
 
@@ -73,8 +73,8 @@ class Level:
             window.blit(clouds_bg, (tiles * -clouds_bg_width + self.clouds_scroll, 0))
 
         # scroll background at this rate per frame
-        self.menu_scroll -= 1
-        self.clouds_scroll += .5
+        self.menu_scroll -= .25
+        self.clouds_scroll += .1
 
         # reset scroll upon reaching edge of first tile
         if abs(self.menu_scroll) > menu_bg_width:
