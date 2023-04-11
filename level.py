@@ -1,14 +1,16 @@
 import sys
 from settings import *
 from player import Player
+import pygame as pg
+from pygame.sprite import Group
 
 
 class Level:
     def __init__(self, game, state):
         self.game = game
         self.state = state
-        self.display_surface = pygame.display.get_surface()
-        self.sprite_group = pygame.sprite.Group()
+        self.display_surface = pg.display.get_surface()
+        self.sprite_group = Group()
         self.game_scroll = [0, 0]
         self.player = Player(game, (400, 400), self.sprite_group)
         self.level_background = level1_image
@@ -19,14 +21,16 @@ class Level:
         self.drop_color = [0, 0, 0]
         self.i = 0
 
+
+
     def level1(self, dt):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.quit()  # quit on esc key
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    pg.quit()  # quit on esc key
                     sys.exit()
         # wiggle room: the size of the background level image - the size of the screen
         # This is the different between the size of the screen and the size of the current level
@@ -88,7 +92,7 @@ class Level:
         self.menu_titles(155, 155, 290, 550)
 
         # After blitting, update display
-        pygame.display.update()
+        pg.display.update()
 
     def menu_titles(self, x1, y1, x2, y2):
         """
@@ -115,7 +119,7 @@ class Level:
             self.i = 0
         self.i += 1
 
-    def level_manager(self, dt):
+    def update(self, dt):
         if self.state == "menu":
             self.menu()
         if self.state == "level1":
