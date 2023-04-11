@@ -5,7 +5,7 @@ def hunt_n_kill(width, height):
     #Inititalize 2d list
     maze=[[0 for i in range(0, width*2-1, 1)] for j in range(0, height*2-1, 1)]
     #Start with first cell
-    x=0
+    x=width
     y=0
     maze[x][y]=1
     path_length=0
