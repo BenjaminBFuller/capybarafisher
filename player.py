@@ -41,12 +41,9 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
 
     def move(self, dt):
-        x = self.game.level.game_scroll[0]
-        y = self.game.level.game_scroll[1]
-        scroll = Vector2(x, y)
         if self.direction.magnitude() > 0:
             self.direction = self.direction.normalize()
-        self.position += (self.direction * self.speed - scroll) * dt
+        self.position += self.direction * self.speed * dt
         self.rect.center = round(self.position)
 
     def update(self, dt):
