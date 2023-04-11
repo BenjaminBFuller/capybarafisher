@@ -11,7 +11,7 @@ from settings import *
 class Game:
     def __init__(self):
         self.previous_time = time.time()  # create clock for calculating delta time
-        self.level = Level("menu")
+        self.level = Level(game=self, state="menu")
 
     def main(self):
         while True:

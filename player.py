@@ -1,16 +1,18 @@
 from board import *
 from settings import *
+from pygame.math import Vector2
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, position, group):
+    def __init__(self, game, position, group):
         super().__init__(group)
+        self.game = game
         self.board = board1
         self.image = capy_image
         self.rect = self.image.get_rect(center=position)
-        self.direction = pygame.math.Vector2()
-        self.position = pygame.math.Vector2(self.rect.center)
-        self.speed = 200
+        self.direction = Vector2()
+        self.position = Vector2(self.rect.center)
+        self.speed = 150
 
     def move_check(self, row, col) -> bool:
         """
@@ -22,7 +24,7 @@ class Player(pygame.sprite.Sprite):
             return True
         return False
 
-    def input(self, dt):
+    def input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
             self.direction.y = -1
@@ -39,11 +41,14 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
 
     def move(self, dt):
+        x = self.game.level.game_scroll[0]
+        y = self.game.level.game_scroll[1]
+        scroll = Vector2(x, y)
         if self.direction.magnitude() > 0:
             self.direction = self.direction.normalize()
-        self.position += self.direction * self.speed * dt
+        self.position += (self.direction * self.speed - scroll) * dt
         self.rect.center = round(self.position)
 
     def update(self, dt):
-        self.input(dt)
+        self.input()
         self.move(dt)

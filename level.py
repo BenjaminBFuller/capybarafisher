@@ -4,15 +4,16 @@ from player import Player
 
 
 class Level:
-    def __init__(self, state):
+    def __init__(self, game, state):
+        self.game = game
         self.state = state
         self.display_surface = pygame.display.get_surface()
         self.sprite_group = pygame.sprite.Group()
-        self.player = Player((400, 400), self.sprite_group)
+        self.game_scroll = [0, 0]
+        self.player = Player(game, (400, 400), self.sprite_group)
         self.level_background = level1_image
         self.menu_scroll = 0
         self.clouds_scroll = 0
-        self.game_scroll = [0, 0]
         self.wiggle = [0, 0]
         self.text_bounce = 0
         self.drop_color = [0, 0, 0]
@@ -34,8 +35,8 @@ class Level:
 
         # game screen scroll: screen move effect centered around player but stops at screen edges
         # dividing this value causes the scroll to smoothly follow the player in a delayed manner, not a locked scroll
-        self.game_scroll[0] += (self.player.rect.x - self.game_scroll[0] - center_width) / 100
-        self.game_scroll[1] += (self.player.rect.y - self.game_scroll[1] - center_height) / 100
+        self.game_scroll[0] += (self.player.rect.x - self.game_scroll[0] - center_width) / 10
+        self.game_scroll[1] += (self.player.rect.y - self.game_scroll[1] - center_height) / 10
 
         # game will always stop scrolling at the borders of the game map
         if self.game_scroll[0] < 0:
