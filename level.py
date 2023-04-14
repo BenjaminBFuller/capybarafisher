@@ -9,14 +9,14 @@ class Level:
         self.state = state
         self.display_surface = pygame.display.get_surface()
         self.sprite_group = pygame.sprite.Group()
-        self.game_scroll = [0, 0]
-        self.player = Player(game, (290, 290), self.sprite_group)
+        self.player = Player(game, (tile * 4 + tile // 2, tile * 4 + tile // 2), self.sprite_group)
         self.level_background = level1_image
         self.menu_scroll = 0
         self.clouds_scroll = 0
+        self.game_scroll = [0, 0]
         self.wiggle = [0, 0]
         self.text_bounce = 0
-        self.drop_color = [0, 0, 0]
+        self.drop_color = [0, 0, 0]  # black
         self.i = 0
 
     def level1(self, dt):
