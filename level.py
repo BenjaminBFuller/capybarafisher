@@ -11,6 +11,7 @@ class Level:
         self.sprite_group = pygame.sprite.Group()
         self.player = Player(game, (tile * 4 + tile // 2, tile * 4 + tile // 2), self.sprite_group)
         self.level_background = level1_image
+        self.level_map = "boards/board1.txt"
         self.menu_scroll = 0
         self.clouds_scroll = 0
         self.game_scroll = [0, 0]
@@ -19,7 +20,19 @@ class Level:
         self.drop_color = [0, 0, 0]  # black
         self.i = 0
 
+    def get_map(self):
+        """
+        Opens and saves the current level_map to a 2d list.
+        :return:
+        List of lists
+        """
+        with open(self.level_map, "r") as open_map:
+            data = map(list, open_map)
+            map_data = list(data)
+        print(map_data)
+
     def level1(self, dt):
+        self.get_map()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
