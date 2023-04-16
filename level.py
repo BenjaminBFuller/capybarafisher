@@ -12,7 +12,7 @@ class Level:
         self.display_surface = pg.display.get_surface()
         self.sprite_group = Group()
         self.game_scroll = [0, 0]
-        self.player = Player(game, (400, 400), self.sprite_group)
+        self.player = Player(game, (290, 290), self.sprite_group)
         self.level_background = level1_image
         self.menu_scroll = 0
         self.clouds_scroll = 0
@@ -39,8 +39,8 @@ class Level:
 
         # game screen scroll: screen move effect centered around player but stops at screen edges
         # dividing this value causes the scroll to smoothly follow the player in a delayed manner, not a locked scroll
-        self.game_scroll[0] += (self.player.rect.x - self.game_scroll[0] - center_width) / 10
-        self.game_scroll[1] += (self.player.rect.y - self.game_scroll[1] - center_height) / 10
+        self.game_scroll[0] += (self.player.rect.x - self.game_scroll[0] - center_width) / 50
+        self.game_scroll[1] += (self.player.rect.y - self.game_scroll[1] - center_height) / 50
 
         # game will always stop scrolling at the borders of the game map
         if self.game_scroll[0] < 0:
@@ -54,8 +54,9 @@ class Level:
 
         # blit BG image for current level, adjusting for scroll
         window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
-        self.sprite_group.draw(self.display_surface)
-        #window.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
+        #self.sprite_group.draw(self.display_surface)
+        window.blit(self.player.image,
+                    (self.player.rect.x - self.game_scroll[0], self.player.rect.y - self.game_scroll[1]))
         self.sprite_group.update(dt)
 
     def menu(self):
@@ -109,13 +110,13 @@ class Level:
         play_title = play_font.render("- press p to play -", False, white)
 
         # Text bounce effect + flashing play title
-        if self.i <= 49:
+        if self.i <= 50:
             window.blit(play_drop_shadow, (x2 - 10, y2 - 10))
             window.blit(play_title, (x2, y2))
             self.text_bounce += .1
-        if self.i > 49:
+        if self.i > 50:
             self.text_bounce -= .1
-        if self.i >= 99:
+        if self.i >= 100:
             self.i = 0
         self.i += 1
 

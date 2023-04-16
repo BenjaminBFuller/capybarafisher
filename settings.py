@@ -3,12 +3,14 @@ from math import ceil
 from pygame.locals import *  # import for flags
 
 width, height = (1280, 800)
-center_width = width / 2
-center_height = height / 2
 tile = 64
+center_width = (width / 2) - tile
+center_height = (height / 2) - tile
 
 pygame.init()
 pygame.mixer.pre_init()  # preset the mixer
+pygame.mixer.music.load('audio/blossom_of_the_water_lilies.wav')  # play forest foley sound
+pygame.mixer.music.play(-1)  # play song on infinite loop, or until stopped
 pygame.display.set_caption('Capybara Fisher')
 pygame.mouse.set_visible(False)  # invisible mouse cursor
 pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])  # types of events allowed
