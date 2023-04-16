@@ -11,7 +11,7 @@ class Level:
         self.sprite_group = pygame.sprite.Group()
         self.player = Player(game, (tile * 4 + tile // 2, tile * 4 + tile // 2), self.sprite_group)
         self.level_background = level1_image
-        self.level_map = "boards/board1.txt"
+        self.level_board_file = "boards/board1.txt"
         self.menu_scroll = 0
         self.clouds_scroll = 0
         self.game_scroll = [0, 0]
@@ -20,19 +20,21 @@ class Level:
         self.drop_color = [0, 0, 0]  # black
         self.i = 0
 
-    def get_map(self):
+    def get_level_board(self):
         """
-        Opens and saves the current level_map to a 2d list.
+        Opens and saves the current level_board to a 2d list.
         :return:
         List of lists
         """
-        with open(self.level_map, "r") as open_map:
-            data = map(list, open_map)
-            map_data = list(data)
-        print(map_data)
+        # create a list, adding each row as a list, stripping the last element (newline element)
+        level_board_data = []
+        with open(self.level_board_file, "r") as open_board:
+            for row in open_board:
+                level_board_data.append(list(row[:-1]))
+        return level_board_data
 
     def level1(self, dt):
-        self.get_map()
+        current_board = self.get_level_board()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -60,6 +62,15 @@ class Level:
             self.game_scroll[0] = self.wiggle[0]
         if self.game_scroll[1] > self.wiggle[1]:
             self.game_scroll[1] = self.wiggle[1]
+
+            # blit rects on board for collision handling, align with scroll
+            for i in range(len(current_board)):
+                for j in range(len(current_board[0])):
+                    if current_board[i][j] == '.':  # . = movable zone
+                        pass  # no collision handling for movable zones
+                    if current_board[i][j] == '#':  # = wall
+                        tile_rect = bugImage4.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
+                        window.blit(bugImage, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
 
         # blit BG image for current level, adjusting for scroll
         window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
