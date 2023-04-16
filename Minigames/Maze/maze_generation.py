@@ -9,7 +9,7 @@ import random
 def hunt_n_kill(width, height):
     #Inititalize 2d list
     assert width%2 ==1  and height%2==1
-    maze=[[0 for i in range(0, width*2-1, 1)] for j in range(0, height*2-1, 1)]
+    maze=[[0 for i in range(0, width*2, 1)] for j in range(0, height*2, 1)]
     #Start with first cell
     x = width-1
     y=0
