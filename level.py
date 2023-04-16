@@ -69,8 +69,8 @@ class Level:
                     if current_board[i][j] == '.':  # . = movable zone
                         pass  # no collision handling for movable zones
                     if current_board[i][j] == '#':  # = wall
-                        tile_rect = bugImage4.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
-                        window.blit(bugImage, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
+                        tile_rect = wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
+                        window.blit(wall_image, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
 
         # blit BG image for current level, adjusting for scroll
         window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
