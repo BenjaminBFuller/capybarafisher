@@ -38,9 +38,9 @@ class Level:
 
     def level1(self, dt):
         current_board = self.get_level_board()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
                 sys.exit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
@@ -75,11 +75,6 @@ class Level:
                         tile_rect = wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
                         window.blit(wall_image, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
 
-        # blit BG image for current level, adjusting for scroll
-        window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
-        # self.sprite_group.draw(self.display_surface)
-        window.blit(self.player.image,
-                    (self.player.rect.x - self.game_scroll[0], self.player.rect.y - self.game_scroll[1]))
         self.sprite_group.update(dt)
 
     def menu(self):
@@ -94,13 +89,6 @@ class Level:
                     pygame.quit()  # quit on esc key
                     sys.exit()
 
-        # blit tiles so that they seamlessly align, from left to right
-        for tiles in range(0, menu_tiles):
-            window.blit(menu_bg, (tiles * menu_bg_width + self.menu_scroll, 0))
-
-        for tiles in range(0, clouds_tiles):
-            window.blit(clouds_bg, (tiles * -clouds_bg_width + self.clouds_scroll, 0))
-
         # scroll background at this rate per frame
         self.menu_scroll -= .25
         self.clouds_scroll += .1
@@ -111,12 +99,6 @@ class Level:
 
         if abs(self.clouds_scroll) > clouds_bg_width:
             self.clouds_scroll = 0
-
-        # blit menu titles/text with function
-        self.menu_titles(155, 155, 290, 550)
-
-        # After blitting, update display
-        pg.display.update()
 
     def menu_titles(self, x1, y1, x2, y2):
         """
@@ -148,3 +130,20 @@ class Level:
             self.menu()
         if self.state == "level1":
             self.level1(dt)
+        self.draw()
+
+    def draw(self):
+        if self.state == "menu":
+            # blit tiles so that they seamlessly align, from left to right
+            for tiles in range(0, menu_tiles):
+                window.blit(menu_bg, (tiles * menu_bg_width + self.menu_scroll, 0))
+            for tiles in range(0, clouds_tiles):
+                window.blit(clouds_bg, (tiles * -clouds_bg_width + self.clouds_scroll, 0))
+            # blit menu titles/text with function
+            self.menu_titles(155, 155, 290, 550)
+        if self.state == "level1":
+            # blit BG image for current level, adjusting for scroll
+            window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
+            # self.sprite_group.draw(self.display_surface)
+            window.blit(self.player.image,
+                        (self.player.rect.x - self.game_scroll[0], self.player.rect.y - self.game_scroll[1]))
