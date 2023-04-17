@@ -123,6 +123,5 @@ class Level:
             # blit BG image for current level, adjusting for scroll
             window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
             #self.sprite_group.draw(self.display_surface)
-            window.blit(self.player.image,
-                        (self.player.rect.x - self.game_scroll[0], self.player.rect.y - self.game_scroll[1]))
+            self.player.draw()
             

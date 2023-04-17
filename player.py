@@ -1,6 +1,9 @@
 from board import *
 from settings import *
+import pygame as pg
 from pygame.math import Vector2
+from timer import Timer
+from pygame.sprite import Sprite
 
 
 class Player(pygame.sprite.Sprite):
@@ -16,6 +19,14 @@ class Player(pygame.sprite.Sprite):
         self.direction = Vector2()
         self.position = Vector2(self.rect.center)
         self.speed = 150
+        self.set_animation()
+        
+    def set_animation(self):
+        self.up_images = [ pg.transform.scale(pg.image.load(f'images/capy/Back_0{x}.png'), (capy_width, capy_height)) for x in range(8)]
+        self.up_timer = Timer(self.up_images, 0, delay=50)
+        self.timer = self.up_timer
+        
+       
 
     def move_check(self, row, col) -> bool:
         """
@@ -50,9 +61,12 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = round(self.position)
         self.collision_rect.center = self.rect.center
         self.collision_rect.centery += 32
-        
-
 
     def update(self, dt):
         self.input()
         self.move(dt)
+
+    def draw(self):
+        # self.image = self.timer.image()
+        window.blit(self.image,
+                        (self.rect.x - self.game.level.game_scroll[0], self.rect.y - self.game.level.game_scroll[1]))
