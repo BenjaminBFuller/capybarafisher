@@ -50,8 +50,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = round(self.position)
         self.collision_rect.center = self.rect.center
         self.collision_rect.centery += 32
-        
-
 
     def update(self, dt):
         self.input()
