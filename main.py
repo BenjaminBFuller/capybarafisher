@@ -3,10 +3,9 @@
 
 # main.py
 import time
-
-from level import Level
-from settings import *
 import pygame as pg
+from level import Level
+
 
 class Game:
     def __init__(self):

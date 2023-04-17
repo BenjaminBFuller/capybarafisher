@@ -23,7 +23,9 @@ class Level:
         self.text_bounce = 0
         self.drop_color = [0, 0, 0]  # black
         self.time = pg.time.get_ticks()
-        
+        self.collision_tiles = None
+        self.current_board = None
+
     def next_level(self):
         self.current_level += 1
         self.load_level()
@@ -45,10 +47,10 @@ class Level:
             for i in range(len(self.current_board)):
                 for j in range(len(self.current_board[0])):
                     if self.current_board[i][j] == '.':  # . = wall
-                        self.collision_tiles.append(wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
-                          
+                        self.collision_tiles.append(
+                            wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
+
     def check_collisions(self):
-        
         for tile in self.collision_tiles:
             if tile.collidepoint(self.player.collision_rect.center):
                 return True
@@ -72,8 +74,6 @@ class Level:
         # dividing this value causes the scroll to smoothly follow the player in a delayed manner, not a locked scroll
         self.game_scroll[0] += (self.player.rect.x - self.game_scroll[0] - center_width) / 50
         self.game_scroll[1] += (self.player.rect.y - self.game_scroll[1] - center_height) / 50
-
-        
 
         # game will always stop scrolling at the borders of the game map
         if self.game_scroll[0] < 0:
@@ -158,6 +158,5 @@ class Level:
             # blit the collision tiles
             for e in self.collision_tiles:
                 window.blit(wall_image, (e.x - self.game_scroll[0], e.y - self.game_scroll[1]))
-            #self.sprite_group.draw(self.display_surface)
+            # self.sprite_group.draw(self.display_surface)
             self.player.draw()
-            

@@ -19,6 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.dir = "up"
         self.direction = Vector2()
         self.position = Vector2(self.rect.center)
+        self.last_position = self.position
         self.speed = 150
         self.moving = False
         self.collision_timer = pg.time.get_ticks()
@@ -49,17 +50,6 @@ class Player(pygame.sprite.Sprite):
         elif self.dir == "right":
             self.position.x -= tile/2
         self.update_collision_rect()
-       
-
-    def move_check(self, row, col) -> bool:
-        """
-        Checks if spot on board can be moved to.
-
-        :return: boolean value
-        """
-        if self.board[int(row)][int(col)] != 0:  # if move spot is not a wall
-            return True
-        return False
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -111,7 +101,6 @@ class Player(pygame.sprite.Sprite):
             
         self.rect.center = round(self.position)
         self.update_collision_rect()
-        
 
     def update(self, dt):
         self.input()
