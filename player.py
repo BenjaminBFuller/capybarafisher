@@ -1,4 +1,4 @@
-from board import *
+from level import *
 from settings import *
 from pygame.math import Vector2
 
@@ -7,7 +7,6 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, game, position, group):
         super().__init__(group)
         self.game = game
-        self.board = board1
         self.image = capy_image
         self.rect = self.image.get_rect(center=position)
         self.collision_rect = self.rect
@@ -16,16 +15,6 @@ class Player(pygame.sprite.Sprite):
         self.direction = Vector2()
         self.position = Vector2(self.rect.center)
         self.speed = 150
-
-    def move_check(self, row, col) -> bool:
-        """
-        Checks if spot on board can be moved to.
-
-        :return: boolean value
-        """
-        if self.board[int(row)][int(col)] != 0:  # if move spot is not a wall
-            return True
-        return False
 
     def input(self):
         keys = pygame.key.get_pressed()

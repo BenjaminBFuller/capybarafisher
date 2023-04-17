@@ -66,14 +66,14 @@ class Level:
         if self.game_scroll[1] > self.wiggle[1]:
             self.game_scroll[1] = self.wiggle[1]
 
-            # blit rects on board for collision handling, align with scroll
-            for i in range(len(current_board)):
-                for j in range(len(current_board[0])):
-                    if current_board[i][j] == '.':  # . = movable zone
-                        pass  # no collision handling for movable zones
-                    if current_board[i][j] == '#':  # = wall
-                        tile_rect = wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
-                        window.blit(wall_image, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
+        # blit rects on board for collision handling, align with scroll
+        for i in range(len(current_board)):
+            for j in range(len(current_board[0])):
+                if current_board[i][j] == '#':  # = movable zone
+                    pass  # no collision handling for movable zones
+                if current_board[i][j] == '.':  # . = wall
+                    tile_rect = wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
+                    window.blit(wall_image, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
 
         self.sprite_group.update(dt)
 
