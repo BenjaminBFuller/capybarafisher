@@ -35,7 +35,9 @@ clouds_bg_width = clouds_bg.get_width()
 clouds_tiles = ceil(width / clouds_bg_width) + 1
 
 capy_image = pygame.image.load("images/capy1.png").convert_alpha()
-capy_image = pygame.transform.scale(capy_image, (tile, tile * 1.5))
+capy_width = 64
+capy_height = 96
+capy_image = pygame.transform.scale(capy_image, (capy_width, capy_height))
 
 wall_image = pygame.image.load("images/wall.png").convert_alpha()
 wall_image = pygame.transform.scale(wall_image, (tile, tile))
