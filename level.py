@@ -1,14 +1,17 @@
 import sys
 from settings import *
 from player import Player
+import pygame as pg
+from pygame.sprite import Group
 
 
 class Level:
     def __init__(self, game, state):
         self.game = game
         self.state = state
-        self.display_surface = pygame.display.get_surface()
-        self.sprite_group = pygame.sprite.Group()
+        self.display_surface = pg.display.get_surface()
+        self.sprite_group = Group()
+        self.game_scroll = [0, 0]
         self.player = Player(game, (tile * 4 + tile // 2, tile * 4 + tile // 2), self.sprite_group)
         self.level_background = level1_image
         self.level_board_file = "boards/board1.txt"
@@ -18,7 +21,7 @@ class Level:
         self.wiggle = [0, 0]
         self.text_bounce = 0
         self.drop_color = [0, 0, 0]  # black
-        self.i = 0
+        self.time = pg.time.get_ticks()
 
     def get_level_board(self):
         """
@@ -39,9 +42,9 @@ class Level:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.quit()  # quit on esc key
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    pg.quit()  # quit on esc key
                     sys.exit()
         # wiggle room: the size of the background level image - the size of the screen
         # This is the different between the size of the screen and the size of the current level
@@ -113,7 +116,7 @@ class Level:
         self.menu_titles(155, 155, 290, 550)
 
         # After blitting, update display
-        pygame.display.update()
+        pg.display.update()
 
     def menu_titles(self, x1, y1, x2, y2):
         """
@@ -130,17 +133,17 @@ class Level:
         play_title = play_font.render("- press p to play -", False, white)
 
         # Text bounce effect + flashing play title
-        if self.i <= 50:
+        cur = pg.time.get_ticks() - self.time
+        if cur < 1000:
             window.blit(play_drop_shadow, (x2 - 10, y2 - 10))
             window.blit(play_title, (x2, y2))
-            self.text_bounce += .1
-        if self.i > 50:
-            self.text_bounce -= .1
-        if self.i >= 100:
-            self.i = 0
-        self.i += 1
+            self.text_bounce += .05
+        elif cur < 2000:
+            self.text_bounce -= .05
+        elif cur < 2500:
+            self.time = pg.time.get_ticks()
 
-    def level_manager(self, dt):
+    def update(self, dt):
         if self.state == "menu":
             self.menu()
         if self.state == "level1":

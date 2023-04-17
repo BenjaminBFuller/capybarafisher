@@ -6,7 +6,7 @@ import time
 
 from level import Level
 from settings import *
-
+import pygame as pg
 
 class Game:
     def __init__(self):
@@ -17,9 +17,11 @@ class Game:
         while True:
             dt = time.time() - self.previous_time  # delta time
             self.previous_time = time.time()
+            self.level.update(dt)
+            self.draw()
 
-            self.level.level_manager(dt)
-            pygame.display.update()
+    def draw(self):
+        pg.display.update()
 
 
 if __name__ == "__main__":  # if in main file
