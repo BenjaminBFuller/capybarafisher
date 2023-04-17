@@ -83,4 +83,4 @@ class Player(pygame.sprite.Sprite):
             self.image = self.standard_image
 
         window.blit(self.image,
-                        (self.rect.x - self.game.level.game_scroll[0], self.rect.y - self.game.level.game_scroll[1]))
+                    (self.rect.x - self.game.level.game_scroll[0], self.rect.y - self.game.level.game_scroll[1]))

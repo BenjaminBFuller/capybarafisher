@@ -16,7 +16,7 @@ pygame.display.set_caption('Capybara Fisher')
 pygame.mouse.set_visible(False)  # invisible mouse cursor
 pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])  # types of events allowed
 
-flags = DOUBLEBUF | SCALED  # fullscreen, double buffering, scaled resolution
+flags = FULLSCREEN | DOUBLEBUF | SCALED  # | FULLSCREEN # fullscreen, double buffering, scaled resolution
 window = pygame.display.set_mode((width, height), flags)
 
 white = [255, 255, 255]
