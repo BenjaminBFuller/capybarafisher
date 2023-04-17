@@ -14,30 +14,47 @@ class Level:
         self.game_scroll = [0, 0]
         self.player = Player(game, (tile * 4 + tile // 2, tile * 4 + tile // 2), self.sprite_group)
         self.level_background = level1_image
-        self.level_board_file = "boards/board1.txt"
+        self.level_board_file = "boards/board-level-1.txt"
         self.menu_scroll = 0
+        self.current_level = 0
         self.clouds_scroll = 0
         self.game_scroll = [0, 0]
         self.wiggle = [0, 0]
         self.text_bounce = 0
         self.drop_color = [0, 0, 0]  # black
         self.time = pg.time.get_ticks()
+        
+    def next_level(self):
+        self.current_level += 1
+        self.load_level()
 
-    def get_level_board(self):
+    def load_level(self):
         """
         Opens and saves the current level_board to a 2d list.
         :return:
         List of lists
         """
         # create a list, adding each row as a list, stripping the last element (newline element)
-        level_board_data = []
-        with open(self.level_board_file, "r") as open_board:
-            for row in open_board:
-                level_board_data.append(list(row[:-1]))
-        return level_board_data
+        self.current_board = []
+        self.collision_tiles = []
+        # spawn different things based on the current level
+        if self.current_level == 1:
+            with open(self.level_board_file, "r") as open_board:
+                for row in open_board:
+                    self.current_board.append(list(row[:-1]))
+            for i in range(len(self.current_board)):
+                for j in range(len(self.current_board[0])):
+                    if self.current_board[i][j] == '.':  # . = wall
+                        self.collision_tiles.append(wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
+                          
+    def check_collisions(self):
+        
+        for tile in self.collision_tiles:
+            if tile.collidepoint(self.player.collision_rect.center):
+                return True
+        return False
 
     def level1(self, dt):
-        current_board = self.get_level_board()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -56,6 +73,8 @@ class Level:
         self.game_scroll[0] += (self.player.rect.x - self.game_scroll[0] - center_width) / 50
         self.game_scroll[1] += (self.player.rect.y - self.game_scroll[1] - center_height) / 50
 
+        
+
         # game will always stop scrolling at the borders of the game map
         if self.game_scroll[0] < 0:
             self.game_scroll[0] = 0
@@ -65,15 +84,6 @@ class Level:
             self.game_scroll[0] = self.wiggle[0]
         if self.game_scroll[1] > self.wiggle[1]:
             self.game_scroll[1] = self.wiggle[1]
-
-        # blit rects on board for collision handling, align with scroll
-        for i in range(len(current_board)):
-            for j in range(len(current_board[0])):
-                if current_board[i][j] == '#':  # = movable zone
-                    pass  # no collision handling for movable zones
-                if current_board[i][j] == '.':  # . = wall
-                    tile_rect = wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
-                    window.blit(wall_image, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
 
         self.sprite_group.update(dt)
 
@@ -85,6 +95,7 @@ class Level:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     self.state = "level1"
+                    self.next_level()
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()  # quit on esc key
                     sys.exit()
@@ -144,6 +155,9 @@ class Level:
         if self.state == "level1":
             # blit BG image for current level, adjusting for scroll
             window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
+            # blit the collision tiles
+            for e in self.collision_tiles:
+                window.blit(wall_image, (e.x - self.game_scroll[0], e.y - self.game_scroll[1]))
             #self.sprite_group.draw(self.display_surface)
             self.player.draw()
             
