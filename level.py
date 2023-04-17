@@ -19,7 +19,7 @@ class Level:
         self.wiggle = [0, 0]
         self.text_bounce = 0
         self.drop_color = [0, 0, 0]
-        self.i = 0
+        self.time = pg.time.get_ticks()
 
 
 
@@ -110,15 +110,15 @@ class Level:
         play_title = play_font.render("- press p to play -", False, white)
 
         # Text bounce effect + flashing play title
-        if self.i <= 50:
+        cur = pg.time.get_ticks() - self.time
+        if cur < 1000:
             window.blit(play_drop_shadow, (x2 - 10, y2 - 10))
             window.blit(play_title, (x2, y2))
-            self.text_bounce += .1
-        if self.i > 50:
-            self.text_bounce -= .1
-        if self.i >= 100:
-            self.i = 0
-        self.i += 1
+            self.text_bounce += .05
+        elif cur < 2000:
+            self.text_bounce -= .05
+        elif cur < 2500:
+            self.time = pg.time.get_ticks()
 
     def update(self, dt):
         if self.state == "menu":

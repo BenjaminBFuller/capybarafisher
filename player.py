@@ -10,6 +10,9 @@ class Player(pygame.sprite.Sprite):
         self.board = board1
         self.image = capy_image
         self.rect = self.image.get_rect(center=position)
+        self.collision_rect = self.rect
+        self.collision_rect.y += 32
+        self.collision_rect.height = 64
         self.direction = Vector2()
         self.position = Vector2(self.rect.center)
         self.speed = 150
@@ -45,6 +48,10 @@ class Player(pygame.sprite.Sprite):
             self.direction = self.direction.normalize()
         self.position += self.direction * self.speed * dt
         self.rect.center = round(self.position)
+        self.collision_rect.center = self.rect.center
+        self.collision_rect.centery += 32
+        
+
 
     def update(self, dt):
         self.input()

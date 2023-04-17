@@ -9,13 +9,13 @@ center_height = (height / 2) - tile
 
 pygame.init()
 pygame.mixer.pre_init()  # preset the mixer
-pygame.mixer.music.load('audio/blossom_of_the_water_lilies.wav')  # play forest foley sound
-pygame.mixer.music.play(-1)  # play song on infinite loop, or until stopped
+# pygame.mixer.music.load('audio/blossom_of_the_water_lilies.wav')  # play forest foley sound
+# pygame.mixer.music.play(-1)  # play song on infinite loop, or until stopped
 pygame.display.set_caption('Capybara Fisher')
 pygame.mouse.set_visible(False)  # invisible mouse cursor
 pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])  # types of events allowed
 
-flags = FULLSCREEN | DOUBLEBUF | SCALED  # fullscreen, double buffering, scaled resolution
+flags =  DOUBLEBUF | SCALED  # fullscreen, double buffering, scaled resolution
 window = pygame.display.set_mode((width, height), flags)
 
 white = [255, 255, 255]
