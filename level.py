@@ -12,16 +12,32 @@ class Level:
         self.display_surface = pg.display.get_surface()
         self.sprite_group = Group()
         self.game_scroll = [0, 0]
-        self.player = Player(game, (290, 290), self.sprite_group)
+        self.player = Player(game, (tile * 4 + tile // 2, tile * 4 + tile // 2), self.sprite_group)
         self.level_background = level1_image
+        self.level_board_file = "boards/board1.txt"
         self.menu_scroll = 0
         self.clouds_scroll = 0
+        self.game_scroll = [0, 0]
         self.wiggle = [0, 0]
         self.text_bounce = 0
-        self.drop_color = [0, 0, 0]
+        self.drop_color = [0, 0, 0]  # black
         self.time = pg.time.get_ticks()
 
+    def get_level_board(self):
+        """
+        Opens and saves the current level_board to a 2d list.
+        :return:
+        List of lists
+        """
+        # create a list, adding each row as a list, stripping the last element (newline element)
+        level_board_data = []
+        with open(self.level_board_file, "r") as open_board:
+            for row in open_board:
+                level_board_data.append(list(row[:-1]))
+        return level_board_data
+
     def level1(self, dt):
+        current_board = self.get_level_board()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -50,7 +66,15 @@ class Level:
         if self.game_scroll[1] > self.wiggle[1]:
             self.game_scroll[1] = self.wiggle[1]
 
-        
+            # blit rects on board for collision handling, align with scroll
+            for i in range(len(current_board)):
+                for j in range(len(current_board[0])):
+                    if current_board[i][j] == '.':  # . = movable zone
+                        pass  # no collision handling for movable zones
+                    if current_board[i][j] == '#':  # = wall
+                        tile_rect = wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2))
+                        window.blit(wall_image, (tile_rect.x - self.game_scroll[0], tile_rect.y - self.game_scroll[1]))
+
         self.sprite_group.update(dt)
 
     def menu(self):
@@ -65,7 +89,6 @@ class Level:
                     pygame.quit()  # quit on esc key
                     sys.exit()
 
-       
         # scroll background at this rate per frame
         self.menu_scroll -= .25
         self.clouds_scroll += .1
@@ -76,7 +99,6 @@ class Level:
 
         if abs(self.clouds_scroll) > clouds_bg_width:
             self.clouds_scroll = 0
-
 
     def menu_titles(self, x1, y1, x2, y2):
         """
@@ -109,10 +131,10 @@ class Level:
         if self.state == "level1":
             self.level1(dt)
         self.draw()
-    
+
     def draw(self):
         if self.state == "menu":
-             # blit tiles so that they seamlessly align, from left to right
+            # blit tiles so that they seamlessly align, from left to right
             for tiles in range(0, menu_tiles):
                 window.blit(menu_bg, (tiles * menu_bg_width + self.menu_scroll, 0))
             for tiles in range(0, clouds_tiles):

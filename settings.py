@@ -9,13 +9,14 @@ center_height = (height / 2) - tile
 
 pygame.init()
 pygame.mixer.pre_init()  # preset the mixer
-# pygame.mixer.music.load('audio/blossom_of_the_water_lilies.wav')  # play forest foley sound
-# pygame.mixer.music.play(-1)  # play song on infinite loop, or until stopped
+pygame.mixer.music.load('audio/blossom_of_the_water_lilies.wav')  # play forest foley sound
+pygame.mixer.music.set_volume(.3)
+pygame.mixer.music.play(-1)  # play song on infinite loop, or until stopped
 pygame.display.set_caption('Capybara Fisher')
 pygame.mouse.set_visible(False)  # invisible mouse cursor
 pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])  # types of events allowed
 
-flags =  DOUBLEBUF | SCALED  # fullscreen, double buffering, scaled resolution
+flags = DOUBLEBUF | SCALED  # fullscreen, double buffering, scaled resolution
 window = pygame.display.set_mode((width, height), flags)
 
 white = [255, 255, 255]
@@ -38,5 +39,9 @@ capy_width = 64
 capy_height = 96
 capy_image = pygame.transform.scale(capy_image, (capy_width, capy_height))
 
+wall_image = pygame.image.load("images/wall.png").convert_alpha()
+wall_image = pygame.transform.scale(wall_image, (tile, tile))
+wall_image.set_alpha(0)
+
 level1_image = pygame.image.load("images/capy_level1.png").convert()
-level1_image = pygame.transform.scale(level1_image, (tile * 20, tile * 15))
+level1_image = pygame.transform.scale(level1_image, (tile * 50, tile * 35))
