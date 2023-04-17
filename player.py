@@ -93,11 +93,14 @@ class Player(pygame.sprite.Sprite):
         if self.direction.magnitude() > 0:
             self.direction = self.direction.normalize()
         movement = self.direction * self.speed * dt
+
+        # if there is no collision, set the last position to a safe spot
         if not self.game.level.check_collisions():
-            self.last_position = self.position
+            self.last_position = self.position - movement
             self.position += movement
+        # if there is collision, player goes to last position
         else:
-            self.position = self.last_position - movement * 15
+            self.position = self.last_position
             
         self.rect.center = round(self.position)
         self.update_collision_rect()
