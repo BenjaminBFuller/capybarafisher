@@ -6,7 +6,7 @@ from timer import Timer
 from pygame.sprite import Sprite
 
 
-class Player(pygame.sprite.Sprite):
+class Player(pg.sprite.Sprite):
     def __init__(self, game, position, group):
         super().__init__(group)
         self.game = game
@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
                             for x in range(8)]
         self.left_timer = Timer(self.left_images, 0, delay=50)
         self.timer = self.up_timer
-    
+
     def collide_wall(self):
         if self.dir == "up":
             self.position.y += tile/2
@@ -52,16 +52,16 @@ class Player(pygame.sprite.Sprite):
         self.update_collision_rect()
 
     def input(self):
-        keys = pygame.key.get_pressed()
+        keys = pg.key.get_pressed()
         self.moving = False
 
-        if keys[pygame.K_w]:
+        if keys[pg.K_w]:
             self.direction.y = -1
             self.timer = self.up_timer
             self.standard_image = self.up_images[0]
             self.dir = "up"
             self.moving = True
-        elif keys[pygame.K_s]:
+        elif keys[pg.K_s]:
             self.direction.y = 1
             self.timer = self.down_timer
             self.standard_image = self.down_images[0]
@@ -70,13 +70,13 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.y = 0
 
-        if keys[pygame.K_a]:
+        if keys[pg.K_a]:
             self.direction.x = -1
             self.timer = self.left_timer
             self.standard_image = self.left_images[0]
             self.dir = "left"
             self.moving = True
-        elif keys[pygame.K_d]:
+        elif keys[pg.K_d]:
             self.direction.x = 1
             self.timer = self.right_timer
             self.standard_image = self.right_images[0]
@@ -101,7 +101,7 @@ class Player(pygame.sprite.Sprite):
         # if there is collision, player goes to last position
         else:
             self.position = self.last_position
-            
+
         self.rect.center = round(self.position)
         self.update_collision_rect()
 

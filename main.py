@@ -6,7 +6,6 @@ import time
 import pygame as pg
 from level import Level
 
-
 class Game:
     def __init__(self):
         self.previous_time = time.time()  # create clock for calculating delta time
