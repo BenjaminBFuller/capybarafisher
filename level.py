@@ -1,6 +1,7 @@
 import sys
 from settings import *
 from player import Player
+from fish import Hand, Fish
 import pygame as pg
 from pygame.sprite import Group
 
@@ -13,15 +14,20 @@ class Level:
         self.sprite_group = Group()
         self.game_scroll = [0, 0]
         self.player = Player(game, (tile * 4 + tile // 2, tile * 4 + tile // 2), self.sprite_group)
+        self.hand = Hand(self.sprite_group)
+        self.fish = Fish(self.sprite_group)
         self.level_background = level1_image
-        self.level_board_file = "boards/board1.txt"
+        self.level_board_file = "boards/board-level-1.txt"
         self.menu_scroll = 0
+        self.current_level = 0
         self.clouds_scroll = 0
         self.game_scroll = [0, 0]
         self.wiggle = [0, 0]
         self.text_bounce = 0
         self.drop_color = [0, 0, 0]  # black
         self.time = pg.time.get_ticks()
+        self.collision_tiles = None
+        self.current_board = None
 
     def get_level_board(self):
         """
@@ -35,6 +41,25 @@ class Level:
             for row in open_board:
                 level_board_data.append(list(row[:-1]))
         return level_board_data
+
+    def fishing(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+            elif event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    pg.quit()  # quit on esc key
+                    sys.exit()
+            elif event.type == pg.MOUSEBUTTONDOWN:
+                if self.hand.grab(self.fish):
+                    self.current_level = 0
+                    self.state = "level1"
+                    self.next_level()
+                else:
+                    pass
+            elif event.type == pg.MOUSEBUTTONUP:
+                self.hand.reset_hand()
 
     def level1(self, dt):
         current_board = self.get_level_board()
@@ -78,15 +103,18 @@ class Level:
         self.sprite_group.update(dt)
 
     def menu(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_p:
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_p:
                     self.state = "level1"
-                if event.key == pygame.K_ESCAPE:
-                    pygame.quit()  # quit on esc key
+                    self.next_level()
+                if event.key == pg.K_ESCAPE:
+                    pg.quit()  # quit on esc key
+                if event.key == pg.K_ESCAPE:
+                    pg.quit()  # quit on esc key
                     sys.exit()
 
         # scroll background at this rate per frame
@@ -130,6 +158,8 @@ class Level:
             self.menu()
         if self.state == "level1":
             self.level1(dt)
+        if self.state == "fishing":
+            self.fishing()
         self.draw()
 
     def draw(self):
@@ -144,6 +174,13 @@ class Level:
         if self.state == "level1":
             # blit BG image for current level, adjusting for scroll
             window.blit(self.level_background, (0 - self.game_scroll[0], 0 - self.game_scroll[1]))
-            #self.sprite_group.draw(self.display_surface)
+            # blit the collision tiles
+            for e in self.collision_tiles:
+                window.blit(wall_image, (e.x - self.game_scroll[0], e.y - self.game_scroll[1]))
+            # self.sprite_group.draw(self.display_surface)
             self.player.draw()
-            
+
+        if self.state == "fishing":
+            window.blit(river_image, (0, 0))
+            self.fish.draw()
+            self.hand.draw()
