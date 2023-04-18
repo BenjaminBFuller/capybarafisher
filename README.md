@@ -3,5 +3,8 @@
 - Benjamin Fuller
 - Jose Sanrindo
 - Arman Ambia
-- Jacky Cai
-- Joshua Gonzalez
+
+## How to play
+- Press P to Play
+- WASD to move
+- ESC to exit
