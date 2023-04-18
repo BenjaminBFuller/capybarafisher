@@ -33,6 +33,25 @@ class Level:
         self.current_level += 1
         self.load_level()
 
+    def load_level(self):
+        """
+        Opens and saves the current level_board to a 2d list.
+        :return:
+        List of lists
+        """
+        # create a list, adding each row as a list, stripping the last element (newline element)
+        self.current_board = []
+        self.collision_tiles = []
+        # spawn different things based on the current level
+        if self.current_level == 1:
+            with open(self.level_board_file, "r") as open_board:
+                for row in open_board:
+                    self.current_board.append(list(row[:-1]))
+            for i in range(len(self.current_board)):
+                for j in range(len(self.current_board[0])):
+                    if self.current_board[i][j] == '.':  # . = wall
+                        self.collision_tiles.append(wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
+                        
     def get_level_board(self):
         """
         Opens and saves the current level_board to a 2d list.
