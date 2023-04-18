@@ -58,17 +58,6 @@ class Level:
             if tile.collidepoint(self.player.collision_rect.center):
                 return True
         return False
-        self.current_board = []
-        self.collision_tiles = []
-        # spawn different things based on the current level
-        if self.current_level == 1:
-            with open(self.level_board_file, "r") as open_board:
-                for row in open_board:
-                    self.current_board.append(list(row[:-1]))
-            for i in range(len(self.current_board)):
-                for j in range(len(self.current_board[0])):
-                    if self.current_board[i][j] == '.':  # . = wall
-                        self.collision_tiles.append(wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
 
     def fishing(self):
         for event in pg.event.get():
