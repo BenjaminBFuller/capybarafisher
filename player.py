@@ -1,4 +1,3 @@
-from board import *
 from settings import *
 import pygame as pg
 from pygame.math import Vector2
@@ -10,7 +9,6 @@ class Player(pg.sprite.Sprite):
     def __init__(self, game, position, group):
         super().__init__(group)
         self.game = game
-        self.board = board1
         self.image = self.standard_image = capy_image
         self.rect = self.image.get_rect(center=position)
         self.collision_rect = self.rect
