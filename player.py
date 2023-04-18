@@ -2,7 +2,6 @@ from settings import *
 import pygame as pg
 from pygame.math import Vector2
 from timer import Timer
-from pygame.sprite import Sprite
 
 
 class Player(pg.sprite.Sprite):

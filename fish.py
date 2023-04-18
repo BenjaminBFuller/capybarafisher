@@ -11,13 +11,12 @@ class Hand(pg.sprite.Sprite):
         self.hand_offset = (-235, -80)
         self.grabbing = False
 
-    def update(self):
+    def update(self, dt):
         self.position = pg.mouse.get_pos()
         self.rect.center = self.position
-        # self.rect.move_ip(self.hand_offset)
         # when grabbing, hand moves up and left slightly for visual effect
         if self.grabbing:
-            self.rect.move_ip(20, 20)
+            self.rect.move_ip(-20, -20)
 
     def grab(self, fish):
         if not self.grabbing:
@@ -27,8 +26,8 @@ class Hand(pg.sprite.Sprite):
     def reset_hand(self):
         self.grabbing = False
 
-    def draw(self):
-        self.update()
+    def draw(self, dt):
+        self.update(dt)
         window.blit(self.hand, (self.rect.x, self.rect.y))
 
 
@@ -43,7 +42,7 @@ class Fish(pg.sprite.Sprite):
         self.speed = 4
         self.grabbed = False
 
-    def update(self):
+    def update(self, dt):
         if self.grabbed:
             self.catch_and_go()
         else:
@@ -65,6 +64,6 @@ class Fish(pg.sprite.Sprite):
         if not self.grabbed:
             self.grabbed = True
 
-    def draw(self):
-        self.update()
+    def draw(self, dt):
+        self.update(dt)
         window.blit(self.fish, (self.rect.x, self.rect.y))

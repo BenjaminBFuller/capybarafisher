@@ -167,9 +167,9 @@ class Level:
             self.level1(dt)
         if self.state == "fishing":
             self.fishing()
-        self.draw()
+        self.draw(dt)
 
-    def draw(self):
+    def draw(self, dt):
         if self.state == "menu":
             # blit tiles so that they seamlessly align, from left to right
             for tiles in range(0, menu_tiles):
@@ -189,5 +189,5 @@ class Level:
 
         if self.state == "fishing":
             window.blit(river_image, (0, 0))
-            self.fish.draw()
-            self.hand.draw()
+            self.fish.draw(dt)
+            self.hand.draw(dt)
