@@ -1,5 +1,5 @@
 # Capybara Fisher
- Microsoft "Pygames" Hackathon Submission
+ Microsoft "Pygames" Hackathon Submission, Created by:
 - Benjamin Fuller
 - Jose Sanrindo
 - Arman Ambia
