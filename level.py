@@ -72,7 +72,6 @@ class Level:
                 self.hand.reset_hand()
 
     def level1(self, dt):
-        current_board = self.get_level_board()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
