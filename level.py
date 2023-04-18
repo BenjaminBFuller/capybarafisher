@@ -17,7 +17,7 @@ class Level:
         self.hand = Hand(self.sprite_group)
         self.fish = Fish(self.sprite_group)
         self.level_background = level1_image
-        self.level_board_file = "boards/board-level-1.txt"
+        self.level_board_file = "boards/board1.txt"
         self.menu_scroll = 0
         self.current_level = 0
         self.clouds_scroll = 0
@@ -51,19 +51,6 @@ class Level:
                 for j in range(len(self.current_board[0])):
                     if self.current_board[i][j] == '.':  # . = wall
                         self.collision_tiles.append(wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
-                        
-    def get_level_board(self):
-        """
-        Opens and saves the current level_board to a 2d list.
-        :return:
-        List of lists
-        """
-        # create a list, adding each row as a list, stripping the last element (newline element)
-        level_board_data = []
-        with open(self.level_board_file, "r") as open_board:
-            for row in open_board:
-                level_board_data.append(list(row[:-1]))
-        return level_board_data
 
     def fishing(self):
         for event in pg.event.get():
