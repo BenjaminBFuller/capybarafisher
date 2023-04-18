@@ -16,7 +16,7 @@ pg.display.set_caption('Capybara Fisher')
 pg.mouse.set_visible(False)  # invisible mouse cursor
 pg.event.set_allowed([QUIT, KEYDOWN, KEYUP, MOUSEBUTTONUP, MOUSEBUTTONDOWN])  # types of events allowed
 
-flags = DOUBLEBUF | SCALED  # | FULLSCREEN # fullscreen, double buffering, scaled resolution
+flags = DOUBLEBUF | SCALED | FULLSCREEN # fullscreen, double buffering, scaled resolution
 window = pg.display.set_mode((width, height), flags)
 
 white = [255, 255, 255]
@@ -47,7 +47,7 @@ level1_image = pg.image.load("images/capy_level1.png").convert()
 level1_image = pg.transform.scale(level1_image, (tile * 50, tile * 35))
 
 river_image = pg.image.load("images/river.png").convert()
-river_image = pg.transform.scale(river_image, (tile * 20, tile * 12))
+river_image = pg.transform.scale(river_image, (tile * 20, tile * 13))
 
 capy_hand = pg.image.load("images/capy_hand.png").convert_alpha()
 capy_hand = pg.transform.scale(capy_hand, (tile * 6, tile * 10))
