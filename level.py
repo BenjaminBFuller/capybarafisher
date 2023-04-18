@@ -29,6 +29,10 @@ class Level:
         self.collision_tiles = None
         self.current_board = None
 
+    def next_level(self):
+        self.current_level += 1
+        self.load_level()
+
     def get_level_board(self):
         """
         Opens and saves the current level_board to a 2d list.
