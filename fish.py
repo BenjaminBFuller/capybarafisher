@@ -58,7 +58,7 @@ class Fish(pg.sprite.Sprite):
         self.rect = movement
 
     def catch_and_go(self):
-        fish_image.set_alpha(0)
+        self.fish.set_alpha(0)
 
     def caught(self):
         if not self.grabbed:
