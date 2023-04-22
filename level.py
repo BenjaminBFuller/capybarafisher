@@ -170,6 +170,11 @@ class Level:
         self.draw(dt)
 
     def draw(self, dt):
+        """
+        Blit sprites on screen by level state.
+        :param dt:
+        :return:
+        """
         if self.state == "menu":
             # blit tiles so that they seamlessly align, from left to right
             for tiles in range(0, menu_tiles):
