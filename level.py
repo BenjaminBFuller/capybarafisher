@@ -110,6 +110,11 @@ class Level:
         self.sprite_group.update(dt)
 
     def menu(self):
+        """
+        Menu state
+        handles scroll calculation per tick and key getter
+        :return:
+        """
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
