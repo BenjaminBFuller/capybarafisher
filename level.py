@@ -54,6 +54,10 @@ class Level:
                             wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
 
     def check_collisions(self):
+        """
+        Checks for collision; if the player's center point collides with a tile
+        :return Boolean Value:
+        """
         for tile in self.collision_tiles:
             if tile.collidepoint(self.player.collision_rect.center):
                 return True
