@@ -64,6 +64,10 @@ class Level:
         return False
 
     def fishing(self):
+        """
+        Fishing events; handles key events while fishing.
+        :return:
+        """
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
