@@ -87,6 +87,12 @@ class Level:
                 self.hand.reset_hand()
 
     def level1(self, dt):
+        """
+        Level 1 events; handles key events while roaming free on level 1.
+        wiggle[] is the difference between the background and the screen size, which is factored into the scroll.
+        game_scroll[] is applied to the position of objects on the screen, resulting in a visual scroll effect.
+        :return:
+        """
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
