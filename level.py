@@ -30,6 +30,10 @@ class Level:
         self.current_board = None
 
     def next_level(self):
+        """
+        Add 1 to the current level counter and load the current level
+        :return:
+        """
         self.current_level += 1
         self.load_level()
 
