@@ -8,6 +8,11 @@ from level import Level
 
 
 def draw():
+    """
+    Update portions of the screen for display.
+    Uses pg.display.update()
+    :return:
+    """
     pg.display.update()
 
 
