@@ -22,6 +22,10 @@ class Game:
         self.level = Level(game=self, state="menu")
 
     def main(self):
+        """
+        Main loop and delta time calculator for game performance.
+        :return:
+        """
         while True:
             dt = time.time() - self.previous_time  # delta time
             self.previous_time = time.time()
