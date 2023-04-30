@@ -32,7 +32,7 @@ class Game:
             self.level.update(dt)
             draw()
 
-
+# Script call to run game
 if __name__ == "__main__":  # if in main file
     game = Game()
     game.main()  # run game loop
