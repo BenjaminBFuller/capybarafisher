@@ -7,22 +7,33 @@ import pygame as pg
 from level import Level
 
 
+def draw():
+    """
+    Update portions of the screen for display.
+    Uses pg.display.update()
+    :return:
+    """
+    pg.display.update()
+
+
 class Game:
     def __init__(self):
         self.previous_time = time.time()  # create clock for calculating delta time
         self.level = Level(game=self, state="menu")
 
     def main(self):
+        """
+        Main loop and delta time calculator for game performance.
+        :return:
+        """
         while True:
             dt = time.time() - self.previous_time  # delta time
             self.previous_time = time.time()
             self.level.update(dt)
-            self.draw()
-
-    def draw(self):
-        pg.display.update()
+            draw()
 
 
+# Script call to run game
 if __name__ == "__main__":  # if in main file
     game = Game()
     game.main()  # run game loop
