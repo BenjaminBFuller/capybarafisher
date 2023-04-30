@@ -30,6 +30,10 @@ class Level:
         self.current_board = None
 
     def next_level(self):
+        """
+        Add 1 to the current level counter and load the current level
+        :return:
+        """
         self.current_level += 1
         self.load_level()
 
@@ -54,12 +58,20 @@ class Level:
                             wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
 
     def check_collisions(self):
+        """
+        Checks for collision; if the player's center point collides with a tile
+        :return Boolean Value:
+        """
         for tile in self.collision_tiles:
             if tile.collidepoint(self.player.collision_rect.center):
                 return True
         return False
 
     def fishing(self):
+        """
+        Fishing events; handles key events while fishing.
+        :return:
+        """
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -79,6 +91,12 @@ class Level:
                 self.hand.reset_hand()
 
     def level1(self, dt):
+        """
+        Level 1 events; handles key events while roaming free on level 1.
+        wiggle[] is the difference between the background and the screen size, which is factored into the scroll.
+        game_scroll[] is applied to the position of objects on the screen, resulting in a visual scroll effect.
+        :return:
+        """
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -110,6 +128,11 @@ class Level:
         self.sprite_group.update(dt)
 
     def menu(self):
+        """
+        Menu state
+        handles scroll calculation per tick and key getter
+        :return:
+        """
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -170,6 +193,11 @@ class Level:
         self.draw(dt)
 
     def draw(self, dt):
+        """
+        Blit sprites on screen by level state.
+        :param dt:
+        :return:
+        """
         if self.state == "menu":
             # blit tiles so that they seamlessly align, from left to right
             for tiles in range(0, menu_tiles):
