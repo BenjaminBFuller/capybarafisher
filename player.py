@@ -41,16 +41,6 @@ class Player(pg.sprite.Sprite):
         self.left_timer = Timer(self.left_images, 0, delay=50)
         self.timer = self.up_timer
 
-    def collide_wall(self):
-        if self.dir == "up":
-            self.position.y += tile/2
-        elif self.dir == "down":
-            self.position.y -= tile/2
-        elif self.dir == "left":
-            self.position.x += tile /2
-        elif self.dir == "right":
-            self.position.x -= tile/2
-        self.update_collision_rect()
 
     def input(self):
         keys = pg.key.get_pressed()
