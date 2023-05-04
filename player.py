@@ -11,7 +11,6 @@ class Player(pg.sprite.Sprite):
         self.image = self.standard_image = capy_image
         self.rect = self.image.get_rect(center=position)
         self.collision_rect = self.rect
-        self.collision_rect.y += 32
         self.collision_rect.height = capy_height
         self.dir = "up"
         self.direction = Vector2()
@@ -40,7 +39,6 @@ class Player(pg.sprite.Sprite):
                             for x in range(8)]
         self.left_timer = Timer(self.left_images, 0, delay=50)
         self.timer = self.up_timer
-
 
     def input(self):
         keys = pg.key.get_pressed()
@@ -78,7 +76,6 @@ class Player(pg.sprite.Sprite):
 
     def update_collision_rect(self):
         self.collision_rect.center = self.rect.center
-        self.collision_rect.centery += 32
 
     def move(self, dt):
         if self.direction.magnitude() > 0:
@@ -101,7 +98,7 @@ class Player(pg.sprite.Sprite):
         self.move(dt)
 
     def draw(self):
-        if self.moving:
+        if self.moving and not self.game.level.check_collisions():
             self.image = self.timer.image()
         else:
             self.image = self.standard_image
