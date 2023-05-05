@@ -19,7 +19,7 @@ class Player(pg.sprite.Sprite):
         self.speed = 150
         self.moving = False
         self.collision_timer = pg.time.get_ticks()
-        self.set_animation()
+        self.set_animation()  # instantiate all animation images and the timers
 
     def set_animation(self):
         """
