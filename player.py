@@ -98,6 +98,9 @@ class Player(pg.sprite.Sprite):
         self.move(dt)
 
     def draw(self):
+        """
+        Draws player onto window given movement status
+        """
         if self.moving and not self.game.level.check_collisions():
             self.image = self.timer.image()
         else:
