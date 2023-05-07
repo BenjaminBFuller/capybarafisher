@@ -41,6 +41,10 @@ class Player(pg.sprite.Sprite):
         self.timer = self.up_timer
 
     def input(self):
+        """
+        Key input getter, direction and animations setter
+        :return:
+        """
         keys = pg.key.get_pressed()
         self.moving = False
 
@@ -90,6 +94,7 @@ class Player(pg.sprite.Sprite):
         else:
             self.position = self.last_position
 
+        # set center position of player rect to the location of the position vector
         self.rect.center = round(self.position)
         self.update_collision_rect()
 
