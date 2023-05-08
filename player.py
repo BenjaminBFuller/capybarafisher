@@ -82,6 +82,13 @@ class Player(pg.sprite.Sprite):
         self.collision_rect.center = self.rect.center
 
     def move(self, dt):
+        """
+        Calculates movement from direction, speed, and delta time.
+        Normalizes diagonal vector movement.
+        Sets last position in case of collision
+        :param dt:
+        :return:
+        """
         if self.direction.magnitude() > 0:
             self.direction = self.direction.normalize()
         movement = self.direction * self.speed * dt
