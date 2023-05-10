@@ -106,6 +106,11 @@ class Player(pg.sprite.Sprite):
         self.update_collision_rect()
 
     def update(self, dt):
+        """
+        Gets input and moves player. Overrides pygame.update built in function
+        :param dt:
+        :return:
+        """
         self.input()
         self.move(dt)
 
