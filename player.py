@@ -79,6 +79,10 @@ class Player(pg.sprite.Sprite):
             self.direction.x = 0
 
     def update_collision_rect(self):
+        """
+        Sets the center of collision rect to the center of the player rect
+        :return:
+        """
         self.collision_rect.center = self.rect.center
 
     def move(self, dt):
