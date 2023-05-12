@@ -73,6 +73,10 @@ class Level:
         return False
 
     def can_fish(self):
+        """
+        Check for collision with a "fishing spot" tile.
+        :return Boolean Value:
+        """
         for fish_tile in self.fishing_tiles:
             if fish_tile.colliderect(self.player.collision_rect):
                 return True
