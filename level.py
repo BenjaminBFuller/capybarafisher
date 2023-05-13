@@ -199,6 +199,11 @@ class Level:
             self.time = pg.time.get_ticks()
 
     def update(self, dt):
+        """
+        State handling update function. Directs game to different states/levels.
+        :param dt:
+        :return:
+        """
         if self.state == "menu":
             self.menu()
         if self.state == "level1":
