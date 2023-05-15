@@ -1,3 +1,6 @@
+# player.py
+# includes Player class for the movable character during levels
+
 from settings import *
 import pygame as pg
 from pygame.math import Vector2
