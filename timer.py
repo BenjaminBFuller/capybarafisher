@@ -1,3 +1,6 @@
+# timer.py
+# Includes Timer class for timing animations on sprites
+
 import pygame as pg
 
 
@@ -17,7 +20,8 @@ class Timer:
         now = pg.time.get_ticks()
         if now - self.last_time_switched > self.delay:
             self.index += 1
-            if self.is_loop: self.index %= self.frames
+            if self.is_loop:
+                self.index %= self.frames
             self.last_time_switched = now
 
     def reset(self):

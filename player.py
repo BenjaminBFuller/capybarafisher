@@ -26,7 +26,7 @@ class Player(pg.sprite.Sprite):
 
     def set_animation(self):
         """
-        Animation framework for player character. Sets animations and timing for direction handling.
+        Animation framework function for player character. Sets animations and timing for direction handling.
         :return:
         """
         self.up_images = [pg.transform.scale(pg.image.load(f'images/capy/Back_0{x}.png'), (capy_width, capy_height)) for
