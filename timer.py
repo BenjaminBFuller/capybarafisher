@@ -15,6 +15,10 @@ class Timer:
         self.index = start_index if start_index <= len(image_list) - 1 else 0
 
     def next_frame(self):
+        """
+        Increase index for animation frame by 1 or loop back around to index 0 if at end of indexes.
+        :return: 
+        """
         if self.is_expired():
             return
         now = pg.time.get_ticks()
