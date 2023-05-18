@@ -17,7 +17,7 @@ class Timer:
     def next_frame(self):
         """
         Increase index for animation frame by 1 or loop back around to index 0 if at end of indexes.
-        :return: 
+        :return:
         """
         if self.is_expired():
             return
@@ -29,6 +29,10 @@ class Timer:
             self.last_time_switched = now
 
     def reset(self):
+        """
+        Reset index to 0 upon reaching last index
+        :return:
+        """
         self.index = self.start_index if self.start_index < len(self.image_list) - 1 else 0
 
     def is_expired(self):
