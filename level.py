@@ -62,7 +62,7 @@ class Level:
                         self.collision_tiles.append(
                             wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
 
-    def check_collisions(self):
+    def check_collisions(self) -> bool:
         """
         Checks for collision; if the player's center point collides with a tile
         :return Boolean Value:
@@ -72,7 +72,7 @@ class Level:
                 return True
         return False
 
-    def can_fish(self):
+    def can_fish(self) -> bool:
         """
         Check for collision with a "fishing spot" tile.
         :return Boolean Value:

@@ -35,7 +35,7 @@ class Timer:
         """
         self.index = self.start_index if self.start_index < len(self.image_list) - 1 else 0
 
-    def is_expired(self):
+    def is_expired(self) -> bool:
         return not self.is_loop and self.index >= len(self.image_list) - 1
 
     def image(self):
