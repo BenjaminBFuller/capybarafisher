@@ -33,7 +33,11 @@ class Game:
             draw()
 
 
+<<<<<<< HEAD
 # Script call to run game
+=======
+# Script call to run game loop
+>>>>>>> ben
 if __name__ == "__main__":  # if in main file
-    game = Game()
+    game = Game()  # instantiate game
     game.main()  # run game loop

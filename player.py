@@ -1,3 +1,6 @@
+# player.py
+# includes Player class for the movable character during levels
+
 from settings import *
 import pygame as pg
 from pygame.math import Vector2
@@ -11,7 +14,6 @@ class Player(pg.sprite.Sprite):
         self.image = self.standard_image = capy_image
         self.rect = self.image.get_rect(center=position)
         self.collision_rect = self.rect
-        self.collision_rect.y += 32
         self.collision_rect.height = capy_height
         self.dir = "up"
         self.direction = Vector2()
@@ -20,9 +22,13 @@ class Player(pg.sprite.Sprite):
         self.speed = 150
         self.moving = False
         self.collision_timer = pg.time.get_ticks()
-        self.set_animation()
+        self.set_animation()  # instantiate all animation images and the timers
 
     def set_animation(self):
+        """
+        Animation framework function for player character. Sets animations and timing for direction handling.
+        :return:
+        """
         self.up_images = [pg.transform.scale(pg.image.load(f'images/capy/Back_0{x}.png'), (capy_width, capy_height)) for
                           x in range(8)]
         self.up_timer = Timer(self.up_images, 0, delay=50)
@@ -37,18 +43,11 @@ class Player(pg.sprite.Sprite):
         self.left_timer = Timer(self.left_images, 0, delay=50)
         self.timer = self.up_timer
 
-    def collide_wall(self):
-        if self.dir == "up":
-            self.position.y += tile/2
-        elif self.dir == "down":
-            self.position.y -= tile/2
-        elif self.dir == "left":
-            self.position.x += tile /2
-        elif self.dir == "right":
-            self.position.x -= tile/2
-        self.update_collision_rect()
-
     def input(self):
+        """
+        Key input getter, direction and animations setter
+        :return:
+        """
         keys = pg.key.get_pressed()
         self.moving = False
 
@@ -83,10 +82,20 @@ class Player(pg.sprite.Sprite):
             self.direction.x = 0
 
     def update_collision_rect(self):
+        """
+        Sets the center of collision rect to the center of the player rect
+        :return:
+        """
         self.collision_rect.center = self.rect.center
-        self.collision_rect.centery += 32
 
     def move(self, dt):
+        """
+        Calculates movement from direction, speed, and delta time.
+        Normalizes diagonal vector movement.
+        Sets last position in case of collision
+        :param dt:
+        :return:
+        """
         if self.direction.magnitude() > 0:
             self.direction = self.direction.normalize()
         movement = self.direction * self.speed * dt
@@ -99,15 +108,24 @@ class Player(pg.sprite.Sprite):
         else:
             self.position = self.last_position
 
+        # set center position of player rect to the location of the position vector
         self.rect.center = round(self.position)
         self.update_collision_rect()
 
     def update(self, dt):
+        """
+        Gets input and moves player. Overrides pygame.update built in function
+        :param dt:
+        :return:
+        """
         self.input()
         self.move(dt)
 
     def draw(self):
-        if self.moving:
+        """
+        Draws player onto window given movement status
+        """
+        if self.moving and not self.game.level.check_collisions():
             self.image = self.timer.image()
         else:
             self.image = self.standard_image

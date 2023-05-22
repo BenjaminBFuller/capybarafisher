@@ -26,6 +26,7 @@ class Level:
         self.text_bounce = 0
         self.drop_color = [0, 0, 0]  # black
         self.time = pg.time.get_ticks()
+        self.fishing_tiles = None
         self.collision_tiles = None
         self.current_board = None
 
@@ -43,7 +44,8 @@ class Level:
         :return:
         List of lists
         """
-        # create a list, adding each row as a list, stripping the last element (newline element)
+        # creates or resets a list, adding each row as a list, stripping the last element (newline element)
+        self.fishing_tiles = []
         self.current_board = []
         self.collision_tiles = []
         # spawn different things based on the current level
@@ -53,17 +55,30 @@ class Level:
                     self.current_board.append(list(row[:-1]))
             for i in range(len(self.current_board)):
                 for j in range(len(self.current_board[0])):
+                    if self.current_board[i][j] == "F":
+                        self.fishing_tiles.append(
+                            wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
                     if self.current_board[i][j] == '.':  # . = wall
                         self.collision_tiles.append(
                             wall_image.get_rect(center=(j * tile + tile // 2, i * tile + tile // 2)))
 
-    def check_collisions(self):
+    def check_collisions(self) -> bool:
         """
         Checks for collision; if the player's center point collides with a tile
         :return Boolean Value:
         """
-        for tile in self.collision_tiles:
-            if tile.collidepoint(self.player.collision_rect.center):
+        for coll_tile in self.collision_tiles:
+            if coll_tile.collidepoint(self.player.collision_rect.center):
+                return True
+        return False
+
+    def can_fish(self) -> bool:
+        """
+        Check for collision with a "fishing spot" tile.
+        :return Boolean Value:
+        """
+        for fish_tile in self.fishing_tiles:
+            if fish_tile.colliderect(self.player.collision_rect):
                 return True
         return False
 
@@ -184,6 +199,11 @@ class Level:
             self.time = pg.time.get_ticks()
 
     def update(self, dt):
+        """
+        State handling update function. Directs game to different states/levels.
+        :param dt:
+        :return:
+        """
         if self.state == "menu":
             self.menu()
         if self.state == "level1":
