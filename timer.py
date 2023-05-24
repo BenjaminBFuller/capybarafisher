@@ -43,5 +43,9 @@ class Timer:
         return not self.is_loop and self.index >= len(self.image_list) - 1
 
     def image(self):
+        """
+        Call next_frame, then return the next image in the list
+        :return:
+        """
         self.next_frame()
         return self.image_list[self.index]
