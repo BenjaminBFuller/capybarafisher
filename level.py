@@ -1,3 +1,6 @@
+# level.py
+# Includes Level class for all scenes/menus/levels inside the game
+
 import sys
 from settings import *
 from player import Player
