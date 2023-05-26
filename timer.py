@@ -31,14 +31,14 @@ class Timer:
     def reset(self):
         """
         Reset index to 0 upon reaching last index
-        :return:
+        :return: Boolean Value
         """
         self.index = self.start_index if self.start_index < len(self.image_list) - 1 else 0
 
     def is_expired(self) -> bool:
         """
         Checks if the animation sequence is expired; not a loop and end of the sequence.
-        :return:
+        :return: Boolean Value
         """
         return not self.is_loop and self.index >= len(self.image_list) - 1
 
