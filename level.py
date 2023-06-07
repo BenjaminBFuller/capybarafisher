@@ -11,6 +11,7 @@ from pygame.sprite import Group
 
 class Level:
     def __init__(self, game, state):
+        # Level class init function, initialize attributes
         self.game = game
         self.state = state
         self.display_surface = pg.display.get_surface()
