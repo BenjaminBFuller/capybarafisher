@@ -9,6 +9,7 @@ from timer import Timer
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game, position, group):
+        # Player class init function, initialize sprite group attributes
         super().__init__(group)
         self.game = game
         self.image = self.standard_image = capy_image
