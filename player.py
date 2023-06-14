@@ -52,6 +52,7 @@ class Player(pg.sprite.Sprite):
         keys = pg.key.get_pressed()
         self.moving = False
 
+        # direction handling
         if keys[pg.K_w]:
             self.direction.y = -1
             self.timer = self.up_timer
