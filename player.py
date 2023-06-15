@@ -127,6 +127,8 @@ class Player(pg.sprite.Sprite):
         """
         Draws player onto window given movement status
         """
+        # if moving and no collisions, set image to animation loop
+        # otherwise if there are collisions, set standard image of player
         if self.moving and not self.game.level.check_collisions():
             self.image = self.timer.image()
         else:
