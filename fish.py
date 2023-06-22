@@ -21,6 +21,7 @@ class Hand(pg.sprite.Sprite):
     def grab(self, fish):
         """
         Grab collide function for hand and fish.
+        Used is Level class, fishing() function
         :param fish:
         :return: true or false if hand collision with fish
         """
