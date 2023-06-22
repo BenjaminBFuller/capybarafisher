@@ -19,6 +19,11 @@ class Hand(pg.sprite.Sprite):
             self.rect.move_ip(-20, -20)
 
     def grab(self, fish):
+        """
+        Grab collide function for hand and fish.
+        :param fish:
+        :return: true or false if hand collision with fish
+        """
         if not self.grabbing:
             self.grabbing = True
             return self.rect.colliderect(fish.rect)
