@@ -12,6 +12,11 @@ class Hand(pg.sprite.Sprite):
         self.grabbing = False
 
     def update(self, dt):
+        """
+        Update hand position.
+        :param dt:
+        :return:
+        """
         self.position = pg.mouse.get_pos()
         self.rect.center = self.position
         # when grabbing, hand moves up and left slightly for visual effect
