@@ -13,7 +13,7 @@ class Hand(pg.sprite.Sprite):
 
     def update(self, dt):
         """
-        Update hand position.
+        Update hand position. Slightly offset while clicking to portray depth of grab.
         :param dt:
         :return:
         """
@@ -35,6 +35,10 @@ class Hand(pg.sprite.Sprite):
             return self.rect.colliderect(fish.rect)
 
     def reset_hand(self):
+        """
+        Set self.grabbing to False
+        :return:
+        """
         self.grabbing = False
 
     def draw(self, dt):
