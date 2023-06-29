@@ -58,6 +58,11 @@ class Fish(pg.sprite.Sprite):
         self.grabbed = False
 
     def update(self, dt):
+        """
+        Update fish sprite through self.grabbed boolean.
+        :param dt:
+        :return:
+        """
         if self.grabbed:
             self.catch_and_go()
         else:
