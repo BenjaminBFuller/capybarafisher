@@ -69,6 +69,7 @@ class Fish(pg.sprite.Sprite):
             self.swim()
 
     def swim(self):
+        """Move fish side to side"""
         movement = self.rect.move((self.speed, 0))
         if not self.area.contains(movement):
             if self.rect.left < self.area.left or self.rect.right > self.area.right:
