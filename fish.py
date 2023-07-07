@@ -42,6 +42,7 @@ class Hand(pg.sprite.Sprite):
         self.grabbing = False
 
     def draw(self, dt):
+        """Hand sprite update and blit func"""
         self.update(dt)
         window.blit(self.hand, (self.rect.x, self.rect.y))
 
@@ -87,5 +88,6 @@ class Fish(pg.sprite.Sprite):
             self.grabbed = True
 
     def draw(self, dt):
+        """Fish sprite update and blit func"""
         self.update(dt)
         window.blit(self.fish, (self.rect.x, self.rect.y))
