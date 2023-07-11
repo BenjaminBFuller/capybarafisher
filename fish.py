@@ -84,6 +84,7 @@ class Fish(pg.sprite.Sprite):
         self.fish.set_alpha(0)
 
     def caught(self):
+        """Set self.grabbed to True"""
         if not self.grabbed:
             self.grabbed = True
 
