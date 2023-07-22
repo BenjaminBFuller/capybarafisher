@@ -53,6 +53,7 @@ class Player(pg.sprite.Sprite):
         self.moving = False
 
         # direction handling
+        # uses wasd key inputs for player direction
         if keys[pg.K_w]:
             self.direction.y = -1
             self.timer = self.up_timer
