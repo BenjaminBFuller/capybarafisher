@@ -10,7 +10,7 @@ center_height = (height / 2) - tile
 pg.init()
 pg.mixer.pre_init()  # preset the mixer
 pg.mixer.music.load('audio/blossom_of_the_water_lilies.wav')  # play forest foley sound
-pg.mixer.music.set_volume(20)  # 0 to mute, 100 max volume
+pg.mixer.music.set_volume(0)  # 0 to mute, 100 max volume
 pg.mixer.music.play(-1)  # play song on infinite loop, or until stopped
 pg.display.set_caption('Capybara Fisher')
 pg.mouse.set_visible(False)  # invisible mouse cursor
