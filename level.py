@@ -27,7 +27,6 @@ class Level:
         self.clouds_scroll = 0
         self.game_scroll = [0, 0]
         self.wiggle = [0, 0]
-        self.text_bounce = 0
         self.drop_color = [0, 0, 0]  # black
         self.time = pg.time.get_ticks()
         self.fishing_tiles = None
@@ -180,26 +179,23 @@ class Level:
     def menu_titles(self, x1, y1, x2, y2):
         """
         Main Menu Titles
-        Encapsulated drop shadow functions for tiles, title bounce effect
+        Encapsulated drop shadow functions for titles
         """
         title_drop_shadow = title_font.render("CAPYBARA FISHER", False, self.drop_color)
         title_drop_shadow.set_alpha(100)
-        window.blit(title_drop_shadow, (x1 - 10 - self.text_bounce, y1 - 10 - self.text_bounce))
+        window.blit(title_drop_shadow, (x1 - 10, y1 - 10))
         title = title_font.render("CAPYBARA FISHER", False, white)
-        window.blit(title, (x1 + self.text_bounce, y1 + self.text_bounce))
+        window.blit(title, (x1, y1))
         play_drop_shadow = play_font.render("- press p to play -", False, self.drop_color)
         play_drop_shadow.set_alpha(100)
         play_title = play_font.render("- press p to play -", False, white)
 
-        # Text bounce effect + flashing play title
+        # flashing play title
         cur = pg.time.get_ticks() - self.time
         if cur < 1000:
             window.blit(play_drop_shadow, (x2 - 10, y2 - 10))
             window.blit(play_title, (x2, y2))
-            self.text_bounce += .05
-        elif cur < 2000:
-            self.text_bounce -= .05
-        elif cur < 2500:
+        elif cur < 3000:
             self.time = pg.time.get_ticks()
 
     def update(self, dt):
